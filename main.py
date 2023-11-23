@@ -1,2 +1,3 @@
 from functions import *
-delete_all_ponctuation()
+list = idf_function()
+print(list)

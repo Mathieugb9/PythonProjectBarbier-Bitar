@@ -1,4 +1,5 @@
 import os
+import math
 def list_of_files(directory, extension):
     files_names = []
     for filename in os.listdir(directory):
@@ -94,3 +95,43 @@ def delete_all_ponctuation():
         with open(source_path, 'w') as file:
             file.writelines(processed_lines)
 
+#TF-FUNCTIONS :
+
+def tf_function(file_name): #Il faut modifier pour qu'on puisse choisir qu'elle fichier est le bon
+
+    filepath = f'/Users/mathieu/PycharmProjects/PYTHONPROJECTGPT/Cleaned/{file_name}'
+    with open(filepath,'r') as file:
+        lines = file.readlines()
+        word_count = {}
+        for line in lines:
+
+            words = line.split()
+            for word in words:
+                word_count[word] = word_count.get(word, 0) + 1
+    return(word_count)
+
+#IDF FUNCTION :
+def idf_function(): #modify so it can only take a directory as parameter ( use the function ) and be giving a dictionary and not an list
+    file_list = get_list_of_clean_files()
+    N = len(file_list)
+    word_document_count = {}
+
+
+    for file_name in file_list:
+        word_counts = tf_function(file_name)
+        for word in word_counts:
+            if word not in word_document_count:
+                word_document_count[word] = 0
+            word_document_count[word] += 1
+
+
+    IDFLIST = []
+    for word in word_document_count:
+        idf_score = math.log(N / word_document_count[word])
+        L = [word, idf_score]
+        IDFLIST.append(L)
+
+    return IDFLIST
+'''
+def TF_IDF_function():
+'''
