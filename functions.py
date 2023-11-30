@@ -309,3 +309,5 @@ def get_list_of_words_all_president_said(matrix):
 
 
     return(List_of_TFIDF_greater_than_zero)
+
+#ez
