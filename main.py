@@ -8,8 +8,8 @@ def print_matrix(matrix): #web found function to print on pycharm a large matrix
             print(f"{element:20}", end="")
         print()
 
-dict = TF_IDF_function_with_names()
-print_matrix(dict)
+dict = get_the_count_of_all_words()
+print(dict)
 
 '''
 def printspaces():

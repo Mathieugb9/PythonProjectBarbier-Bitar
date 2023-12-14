@@ -313,4 +313,18 @@ def get_list_of_words_all_president_said(matrix):
 def get_tf_idf_without_unimporant_names():
     list = TF_IDF_function_with_names()
     for column in list[1:]:
-        for row in column[1:]
+        All_values_are_zero = True
+        for row in column[1:]:
+            if row != 0 :
+                All_values_are_zero = False
+                break
+        if All_values_are_zero == True :
+            list.pop(list.index(column))
+    return (list)
+
+def get_the_count_of_all_words():
+    matrix = TF_IDF_function_matrix()
+    count = 0
+    for row in matrix:
+        count += 1
+    return(count)
