@@ -337,3 +337,4 @@ def get_question():
     return string
 
 def clean_question(string):
+    pass
