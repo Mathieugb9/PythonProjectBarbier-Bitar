@@ -133,8 +133,8 @@ if __name__ == "__main__":
 string1 = get_question()
 
 def clean_question(string):
-    str2=string
-    str2.lower()
+
+    str2= string.lower()
     return str2
 '''
 def delete_all_ponctuation():#must have converted in lowercase first
