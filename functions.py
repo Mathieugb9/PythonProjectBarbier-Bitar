@@ -122,7 +122,7 @@ def idf_function():
 
     idf_dict = {}
     for word in word_document_count:
-        idf_dict[word] = math.log(N / word_document_count[word])
+        idf_dict[word] = math.log10(N / word_document_count[word])
 
     return idf_dict
 
@@ -183,7 +183,7 @@ def get_list_of_highest_TFIDF_score(matrix):
     for row in matrix[1:] :
         for element_index in range(1,len(row)):
             element = row[element_index]
-            if (element >= 2.7):
+            if (element >= 0.9):
                 word = row[0]
                 document_name = matrix[0][element_index]
                 List_of_Highest_TFIDF_score.append((word, document_name, element))
@@ -310,4 +310,7 @@ def get_list_of_words_all_president_said(matrix):
 
     return(List_of_TFIDF_greater_than_zero)
 
-#ez
+def get_tf_idf_without_unimporant_names():
+    list = TF_IDF_function_with_names()
+    for column in list[1:]:
+        for row in column[1:]
