@@ -328,3 +328,12 @@ def get_the_count_of_all_words():
     for row in matrix:
         count += 1
     return(count)
+
+###PART 2 QUESTION PART
+def get_question():
+    string=''
+    while string == '':
+        string = input("Enter your question : ")
+    return string
+
+def clean_question(string):
