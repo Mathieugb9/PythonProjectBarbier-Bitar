@@ -8,8 +8,6 @@ def print_matrix(matrix): #web found function to print on pycharm a large matrix
             print(f"{element:20}", end="")
         print()
 
-dict = get_the_count_of_all_words()
-print(dict)
 
 '''
 def printspaces():
@@ -129,3 +127,33 @@ def main():
 if __name__ == "__main__":
     main()
 '''
+
+
+
+string1 = get_question()
+
+def clean_question(string):
+    str2=string
+    str2.lower()
+    return str2
+'''
+def delete_all_ponctuation():#must have converted in lowercase first
+    file_list = get_list_of_clean_files()
+    punctuation = '!"#$%&()*+,./:;<=>?@[\\]^_`{|}~'
+
+    for file_path in file_list:
+        source_path = os.path.join('Cleaned', file_path)
+
+        with open(source_path, 'r') as file:
+            lines = file.readlines()
+            processed_lines = []
+            for line in lines:
+
+                line = line.replace("'", " ").replace("-", " ")
+
+                line = ''.join(char for char in line if char not in punctuation)
+                processed_lines.append(line)
+'''
+
+stringclean = clean_question(string1)
+print(stringclean)

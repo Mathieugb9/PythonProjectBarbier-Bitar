@@ -335,8 +335,3 @@ def get_question():
     while string == '':
         string = input("Enter your question : ")
     return string
-
-def clean_question(string):
-    pass
-
-TEst
