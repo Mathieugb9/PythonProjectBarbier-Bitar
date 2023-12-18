@@ -5,7 +5,7 @@ import os
 def print_matrix(matrix): #web found function to print on pycharm a large matrix in a proper way for the eyes
     for row in matrix:
         for element in row:
-            print(f"{element:20}", end="")
+            print(f"{element:30}", end="")
         print()
 
 
@@ -129,19 +129,18 @@ if __name__ == "__main__":
 '''
 
 
-stringtest = "il est temps de remettre la production avant la spéculation l investissement d avenir avant la satisfaction du présent l emploi durable avant le profit immédiat"
+stringtest = "coincoin il est temps de remettre la production avant la spéculation l investissement d avenir avant la satisfaction du présent l emploi durable avant le profit immédiat"
 
 kol = Terms_question_in_matrix(stringtest)
-matrixxxx = TF_IDF_STRING(stringtest)
-print (kol)
-mnew = TF_IDF_STRING(stringtest)
-print(mnew)
+print(kol)
+tf_result = TF_IDF_STRING(stringtest)
+print(tf_result)
+sumint =0
+for i in range (len(tf_result)):
+    sumint+=1
 
-A=[1,5]
-B=[4,5]
-ff = dot_product(A,B)
-print(ff)
-kan=norm_of_vector(A)
-print(kan)
-hhhhc= calculate_similarity(A,B)
-print(hhhhc)
+print(sumint)
+TF_IDF_function_with_names()
+def transpose(matrix):
+    return [[matrix[j][i] for j in range(len(matrix))] for i in range(len(matrix[0]))]
+

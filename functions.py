@@ -343,44 +343,51 @@ def clean_question(string):
     line = str2.replace("'", " ").replace("-", " ")
     Final_list = line.split(' ')
     return Final_list
-#identify terms that are in the tf-Idf matrix
+
 
 def Terms_question_in_matrix(string):
     input_list = clean_question(string)
     matrix = TF_IDF_function_with_names()
     List_of_element_found_in_the_matrix = []
-    Found_atleast_one_element = False
 
     for word in input_list:
+        found = False
         for element in matrix:
             if element[0] == word:
                 List_of_element_found_in_the_matrix.append(element[0])
-                Found_atleast_one_element = True
+                found = True
+                break
+        if not found:
+            List_of_element_found_in_the_matrix.append(0)
 
     return List_of_element_found_in_the_matrix
-
 def TF_IDF_STRING(string):
-    length_of_the_list = len(clean_question(string))
-    list_input = Terms_question_in_matrix(string)
-    Matrix = []
-    dict = idf_function()
-    for element in list_input :
-        tf_score = 0
 
-        L=[]
-        for i in range (len(list_input)):
-            if element == list_input[i]:
-                tf_score += 1
-        L.append(element)
-        L.append(floor_to_three_decimals(tf_score*dict[element]))
-        Matrix.append(L)
-    return (Matrix)
+    input_list = clean_question(string)
+
+    idf_dict = idf_function()
+    tf_idf_vector = [0] * len(idf_dict)
+
+    word_freq = {}
+    for word in input_list:
+        if word in word_freq:
+            word_freq[word] += 1
+        else:
+            word_freq[word] = 1
+
+    for word in input_list:
+        if word in idf_dict:
+            tf = word_freq[word] / len(input_list)
+            idf = idf_dict[word]
+            tf_idf = tf * idf
+            index = list(idf_dict.keys()).index(word)
+            tf_idf_vector[index] = floor_to_three_decimals(tf_idf)
+
+    return tf_idf_vector
+
 
 
 def dot_product(A,B):
-    if len(A)!=len(B):
-        print("Vectors must have the same dimension !")
-        return (0)
     Output = 0
     for i in range (len(A)):
         Output += A[i]*B[i]
@@ -396,5 +403,6 @@ def norm_of_vector(A):
 def calculate_similarity(A,B):
     Output = (dot_product(A,B))/(norm_of_vector(A)*norm_of_vector(B))
     return Output
-
-def most_relevant_document
+'''
+def most_relevant_document(matrix,question_vector,list_of_files):
+    '''
