@@ -396,13 +396,29 @@ def dot_product(A,B):
 def norm_of_vector(A):
     sum_square = 0
     for i in range (len(A)):
-        sum_square += A[i]^2
+        sum_square += A[i]**2
     Output = math.sqrt(sum_square)
     return Output
 
 def calculate_similarity(A,B):
     Output = (dot_product(A,B))/(norm_of_vector(A)*norm_of_vector(B))
     return Output
-'''
-def most_relevant_document(matrix,question_vector,list_of_files):
-    '''
+
+def transpose(matrix):
+    return [[matrix[j][i] for j in range(len(matrix))] for i in range(len(matrix[0]))]
+
+def most_relevant_doc(matrix, TF_idf_string_questions,List_of_docs):
+    matrix = transpose(matrix)
+    max_similarity = 0
+    doc_index_with_max_similarity = 0
+    index = 0
+
+    for doc_vector in matrix:
+        current_similarity = calculate_similarity(doc_vector, TF_idf_string_questions)
+        if current_similarity > max_similarity:
+            max_similarity = current_similarity
+            doc_index_with_max_similarity = index
+        index += 1
+
+    nom_document_max = List_of_docs[doc_index_with_max_similarity]
+    return nom_document_max
