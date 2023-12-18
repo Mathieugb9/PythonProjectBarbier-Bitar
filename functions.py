@@ -1,39 +1,39 @@
 import os
 import math
-def list_of_files(directory, extension):
+def list_of_files(directory, extension):#function that takes as parameter a string directory and a extention.txt and gives all the files that are realted to this directory with those extension
     files_names = []
-    for filename in os.listdir(directory):
+    for filename in os.listdir(directory): #For loop for every file in the directory
         if filename.endswith(extension):
             files_names.append(filename)
     return files_names
 
-def get_list_of_files():
+def get_list_of_files(): #Get the list of all the files for the directory speeches-2023116
     directory = "./speeches-20231116"
     input_list = list_of_files(directory, "txt")
     return input_list
-def get_list_of_clean_files():
+def get_list_of_clean_files(): #Get the list of all the files from the directory Cleaned
     directory = "./Cleaned"
     input_list = list_of_files(directory, "txt")
     return input_list
 
 
 def get_president_lastname():
-    directory = "./speeches-20231116"
+    directory = "./speeches-20231116" #get the list of all the files from speeches directory
     input_list = list_of_files(directory, "txt")
     president_name = []
 
-    for string in input_list:
-        president_lastname = string[10:-3]
-        filtered_string = ''.join([char for char in president_lastname if char.isalpha() or char.isspace()])
+    for string in input_list: # for every file_name in the directory
+        president_lastname = string[10:-3] #get only the part where the president name appear
+        filtered_string = ''.join([char for char in president_lastname if char.isalpha() or char.isspace()]) #replace by nothing all the character that are not letter
         president_name.append(filtered_string)
-    set_withoutdouble = set(president_name)
-    president_name_nodouble = list(set_withoutdouble)
+    set_withoutdouble = set(president_name)# transform in a set the list of president name
+    president_name_nodouble = list(set_withoutdouble)#retransform in a list the set of president name , this method delete all the doubles
     return president_name_nodouble
 def get_president_entirename(listname): #Must use get_president_lastname
     List_fullname = []
 
-    for name in listname:
-        if name == "Sarkozy":
+    for name in listname: #for every Last name in the list of president name
+        if name == "Sarkozy":# it detect which name is it and append it with the full name
             List_fullname.append("Nicolas Sarkozy")
         elif name == "Giscard dEstaing":
             List_fullname.append("Valéry Giscard d'Estaing")
@@ -48,14 +48,14 @@ def get_president_entirename(listname): #Must use get_president_lastname
         else:
             List_fullname.append("Unknown President")
 
-    return List_fullname
+    return List_fullname #return the list of all the president with their full name
 
 
-def convert_file_lowercases():
-    file_list = get_list_of_files()
+def convert_file_lowercases(): # function to convert the Speeches directory files to a Cleaned directory
+    file_list = get_list_of_files() #get list of all speeches files
 
-    for filename in file_list:
-        source_path = os.path.join('Speeches-20231116', filename)
+    for filename in file_list:# for every file in the list of all files
+        source_path = os.path.join('Speeches-20231116', filename) # we add the all path of each file
 
 
         if not os.path.exists(source_path):
@@ -68,55 +68,55 @@ def convert_file_lowercases():
         with open(source_path, 'r') as source_file:
             with open(dest_path, 'w') as dest_file:
                 for line in source_file:
-                    dest_file.write(line.lower())
+                    dest_file.write(line.lower())# copy each file but every line is in lower cases
 
     return()
 
 
-def delete_all_ponctuation():#must have converted in lowercase first
-    file_list = get_list_of_clean_files()
-    punctuation = '!"#$%&()*+,./:;<=>?@[\\]^_`{|}~'
+def delete_all_ponctuation():#must have converted in lowercase first # deleted all the punctuation of cleaned files
+    file_list = get_list_of_clean_files() #get the list of cleaned files
+    punctuation = '!"#$%&()*+,./:;<=>?@[\\]^_`{|}~' # list all punctuation that should be deleted
 
-    for file_path in file_list:
-        source_path = os.path.join('Cleaned', file_path)
+    for file_path in file_list: # for every file in the file name list
+        source_path = os.path.join('Cleaned', file_path) # give it the full path list
 
-        with open(source_path, 'r') as file:
-            lines = file.readlines()
-            processed_lines = []
-            for line in lines:
+        with open(source_path, 'r') as file: # open the file
+            lines = file.readlines() # get a list of all lines
+            processed_lines = []#new group of lines which will be added the lines cleaned
+            for line in lines: # for each string in the list all lines
 
-                line = line.replace("'", " ").replace("-", " ")
+                line = line.replace("'", " ").replace("-", " ") # replace ' by space and replace - by space so it doesnt modify the integrity of words
 
-                line = ''.join(char for char in line if char not in punctuation)
-                processed_lines.append(line)
+                line = ''.join(char for char in line if char not in punctuation) # every element of the punctuation list in the lines will be replace by '' which is nothing
+                processed_lines.append(line)# append each line to a new group of lines
 
 
-        with open(source_path, 'w') as file:
+        with open(source_path, 'w') as file:# 'w' so it delete everything and add proccessed lines
             file.writelines(processed_lines)
 
 #TF-FUNCTIONS :
 
-def tf_function(file_name):
-    filepath = source_path = os.path.join('Cleaned', file_name)
-    with open(filepath,'r') as file:
-        lines = file.readlines()
+def tf_function(file_name): # function that take as parameter a only file and give it is tf dictionary associated to it
+    filepath = source_path = os.path.join('Cleaned', file_name) # join full path to the file name
+    with open(filepath,'r') as file: # read the file
+        lines = file.readlines() # get a list of all lines
         word_count = {}
-        for line in lines:
-            words = line.split()
-            for word in words:
-                word_count[word] = word_count.get(word, 0) + 1
+        for line in lines: # for each line in all the lines
+            words = line.split() # get a list of all the words in each line
+            for word in words: # for every word in the list
+                word_count[word] = word_count.get(word, 0) + 1 # add in a dictionary [word] = count of the word
     return(word_count)
 
 #IDF FUNCTION:
-def idf_function():
-    file_list = get_list_of_clean_files()
-    N = len(file_list)
+def idf_function(): # idf function
+    file_list = get_list_of_clean_files() # get list of clean files
+    N = len(file_list) # get the number of all documents
     word_document_count = {}
 
-    for file_name in file_list:
-        word_counts = tf_function(file_name)
-        for word in word_counts:
-            if word not in word_document_count:
+    for file_name in file_list: # for every file in the list of all files
+        word_counts = tf_function(file_name) # give the dictionary associated to each word of each file name
+        for word in word_counts: # for word in the dictionarry
+            if word not in word_document_count: #get the number of time the document appear for each file
                 word_document_count[word] = 0
             word_document_count[word] += 1
 
@@ -127,9 +127,9 @@ def idf_function():
     return idf_dict
 
 def TF_IDF_function_matrix():#it print the matrix in the inverse ,the first document is in the last column of the matrix
-    file_list = get_list_of_clean_files()
-    idf_dictionary = idf_function()
-    tf_idf_dict = {}
+    file_list = get_list_of_clean_files()# get the list of files
+    idf_dictionary = idf_function()  # get the idf_dictionary
+    tf_idf_dict = {} # get the
     for file_name in file_list:
         word_count = tf_function(file_name)
         for word, tf in word_count.items():
@@ -310,7 +310,7 @@ def get_list_of_words_all_president_said(matrix):
 
     return(List_of_TFIDF_greater_than_zero)
 
-def get_tf_idf_without_unimporant_names():
+def get_tf_idf_without_unimporant_names_with_word():
     list = TF_IDF_function_with_names()
     for column in list[1:]:
         All_values_are_zero = True
@@ -337,5 +337,64 @@ def get_question():
     return string
 
 def clean_question(string):
-    pass
+    punctuation = '!"#$%&()*+,./:;<=>?@[\\]^_`{|}~'
+    str2 = string.lower()
+    str2 = ''.join(char for char in str2 if char not in punctuation)
+    line = str2.replace("'", " ").replace("-", " ")
+    Final_list = line.split(' ')
+    return Final_list
+#identify terms that are in the tf-Idf matrix
 
+def Terms_question_in_matrix(string):
+    input_list = clean_question(string)
+    matrix = TF_IDF_function_with_names()
+    List_of_element_found_in_the_matrix = []
+    Found_atleast_one_element = False
+
+    for word in input_list:
+        for element in matrix:
+            if element[0] == word:
+                List_of_element_found_in_the_matrix.append(element[0])
+                Found_atleast_one_element = True
+
+    return List_of_element_found_in_the_matrix
+
+def TF_IDF_STRING(string):
+    length_of_the_list = len(clean_question(string))
+    list_input = Terms_question_in_matrix(string)
+    Matrix = []
+    dict = idf_function()
+    for element in list_input :
+        tf_score = 0
+
+        L=[]
+        for i in range (len(list_input)):
+            if element == list_input[i]:
+                tf_score += 1
+        L.append(element)
+        L.append(floor_to_three_decimals(tf_score*dict[element]))
+        Matrix.append(L)
+    return (Matrix)
+
+
+def dot_product(A,B):
+    if len(A)!=len(B):
+        print("Vectors must have the same dimension !")
+        return (0)
+    Output = 0
+    for i in range (len(A)):
+        Output += A[i]*B[i]
+    return (Output)
+
+def norm_of_vector(A):
+    sum_square = 0
+    for i in range (len(A)):
+        sum_square += A[i]^2
+    Output = math.sqrt(sum_square)
+    return Output
+
+def calculate_similarity(A,B):
+    Output = (dot_product(A,B))/(norm_of_vector(A)*norm_of_vector(B))
+    return Output
+
+def most_relevant_document

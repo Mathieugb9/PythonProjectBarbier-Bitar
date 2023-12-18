@@ -129,31 +129,19 @@ if __name__ == "__main__":
 '''
 
 
+stringtest = "il est temps de remettre la production avant la spéculation l investissement d avenir avant la satisfaction du présent l emploi durable avant le profit immédiat"
 
-string1 = get_question()
+kol = Terms_question_in_matrix(stringtest)
+matrixxxx = TF_IDF_STRING(stringtest)
+print (kol)
+mnew = TF_IDF_STRING(stringtest)
+print(mnew)
 
-def clean_question(string):
-
-    str2= string.lower()
-    return str2
-'''
-def delete_all_ponctuation():#must have converted in lowercase first
-    file_list = get_list_of_clean_files()
-    punctuation = '!"#$%&()*+,./:;<=>?@[\\]^_`{|}~'
-
-    for file_path in file_list:
-        source_path = os.path.join('Cleaned', file_path)
-
-        with open(source_path, 'r') as file:
-            lines = file.readlines()
-            processed_lines = []
-            for line in lines:
-
-                line = line.replace("'", " ").replace("-", " ")
-
-                line = ''.join(char for char in line if char not in punctuation)
-                processed_lines.append(line)
-'''
-
-stringclean = clean_question(string1)
-print(stringclean)
+A=[1,5]
+B=[4,5]
+ff = dot_product(A,B)
+print(ff)
+kan=norm_of_vector(A)
+print(kan)
+hhhhc= calculate_similarity(A,B)
+print(hhhhc)
