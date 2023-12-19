@@ -340,7 +340,7 @@ def clean_question(string):
     punctuation = '!"#$%&()*+,./:;<=>?@[\\]^_`{|}~'
     str2 = string.lower()
     str2 = ''.join(char for char in str2 if char not in punctuation)
-    line = str2.replace("'", " ").replace("-", " ")
+    line = str2.replace("'", " ").replace("-", " ").replace("_"," ")
     Final_list = line.split(' ')
     return Final_list
 
@@ -432,15 +432,55 @@ def get_sentence_from_question():
     Question = get_question()
     Question_cleaned = clean_question(Question)
     matrix = TF_IDF_STRING(Question)
+    tfidfcorpus = TF_IDF_function_matrix()
+    tfidfnames = transpose(TF_IDF_function_with_names())
+    list_files = get_list_of_clean_files()
     value = 0
-    index = 0
     index_of_value = 0
-    for element in matrix:
-        if element >= value :
+    for index, element in enumerate(matrix):
+        if element >= value:
             value = element
             index_of_value = index
-        index +=1
+    Document_cleaned = most_relevant_doc(tfidfcorpus, matrix, list_files)
+    Document_normal = get_file_name_from_clean_name(Document_cleaned)
+
+    wordhighest = tfidfnames[0][index_of_value + 1]
+    source_path_cleaned = os.path.join('Cleaned', Document_cleaned)
+    source_path = os.path.join('Speeches-20231116', Document_normal)
+
+    first_time_encounter = None 
+    with open(source_path_cleaned, 'r') as file:
+        lines = file.readlines()
+        for line_number, line in enumerate(lines):
+            list_string = line.split()
+            for word_position, string in enumerate(list_string):
+                if string == wordhighest:
+                    first_time_encounter = (line_number, word_position)
+                    break
+            if first_time_encounter is not None:
+                break
+    with open(source_path,'r') as file :
+        lines2 = file.readlines()
+        final_sentence = lines2[line_number]
+    print("Question entered: ",Question)
+    print("Relevant document returned : ",Document_normal)
+    print("Highest important word : ",wordhighest)
 
 
+    question_starters = {
+        "Comment": "Après analyse, ",
+        "Pourquoi": "Car, ",
+        "Peux-tu": "Oui, bien sûr! "
+    }
+    Question_split = Question.split(" ")
 
-    return index_of_value
+    if Question_split[0] in question_starters:
+        response = question_starters[Question_split[0]]
+        sentence = response + final_sentence
+    else :
+        sentence = "Pour repondre :"+ final_sentence
+
+    
+    
+
+    print("AI response : ",sentence)

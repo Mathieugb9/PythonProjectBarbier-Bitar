@@ -9,7 +9,7 @@ def print_matrix(matrix): #web found function to print on pycharm a large matrix
         print()
 
 
-'''
+
 def printspaces():
     print("\n")
 
@@ -36,6 +36,7 @@ def main():
             print("7. Print the word 'nation' repeated the most times")
             print("8. Find the first president speaking about 'climat' and 'écologie'")
             print("9. Print the list of words said by all presidents")
+            print("10 : ENTER THE QUESTION PART")
             print("0.Exit ")
             printspaces()
 
@@ -116,6 +117,20 @@ def main():
                 input("To return to the menu press any key :")
                 printspaces()
 
+            elif choice == '10':
+                get_sentence_from_question()
+                print("press Y for an another question or E to exit ")
+                casequestion=input()
+                while casequestion != 'Y' or 'E':
+
+                    if casequestion == 'Y':
+                        get_sentence_from_question()
+                        casequestion = input("press Y for an another question or E to exit ")
+                    if casequestion == 'E':
+                        break
+
+
+
             elif choice == '0':
                 print("Exiting the application.")
                 break
@@ -126,27 +141,5 @@ def main():
 
 if __name__ == "__main__":
     main()
-'''
 
 
-stringtest = "l égalité face aux accidents de la vie sera renforcée"
-
-kol = Terms_question_in_matrix(stringtest)
-print(kol)
-tf_result = TF_IDF_STRING(stringtest)
-print(tf_result)
-sumint =0
-for i in range (len(tf_result)):
-    sumint+=1
-listff = get_list_of_clean_files()
-mx = TF_IDF_function_matrix()
-print(most_relevant_doc(mx,tf_result,listff))
-
-kkk = TF_IDF_function_with_names()
-print_matrix(transpose(kkk))
-print(get_file_name_from_clean_name(most_relevant_doc(mx,tf_result,listff)))
-
-value = get_sentence_from_question()
-llll = transpose(TF_IDF_function_with_names())
-bababa = llll[0][value+1]
-print(bababa)
