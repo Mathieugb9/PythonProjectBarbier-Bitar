@@ -129,7 +129,7 @@ if __name__ == "__main__":
 '''
 
 
-stringtest = "coincoin il est temps de remettre la production avant la spéculation l investissement d avenir avant la satisfaction du présent l emploi durable avant le profit immédiat"
+stringtest = "l égalité face aux accidents de la vie sera renforcée"
 
 kol = Terms_question_in_matrix(stringtest)
 print(kol)
@@ -138,9 +138,15 @@ print(tf_result)
 sumint =0
 for i in range (len(tf_result)):
     sumint+=1
+listff = get_list_of_clean_files()
+mx = TF_IDF_function_matrix()
+print(most_relevant_doc(mx,tf_result,listff))
 
-print(sumint)
-TF_IDF_function_with_names()
-def transpose(matrix):
-    return [[matrix[j][i] for j in range(len(matrix))] for i in range(len(matrix[0]))]
+kkk = TF_IDF_function_with_names()
+print_matrix(transpose(kkk))
+print(get_file_name_from_clean_name(most_relevant_doc(mx,tf_result,listff)))
 
+value = get_sentence_from_question()
+llll = transpose(TF_IDF_function_with_names())
+bababa = llll[0][value+1]
+print(bababa)

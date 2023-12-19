@@ -422,3 +422,25 @@ def most_relevant_doc(matrix, TF_idf_string_questions,List_of_docs):
 
     nom_document_max = List_of_docs[doc_index_with_max_similarity]
     return nom_document_max
+
+def get_file_name_from_clean_name(clean_name):
+    Output = clean_name[:-12]
+    Output += '.txt'
+    return(Output)
+
+def get_sentence_from_question():
+    Question = get_question()
+    Question_cleaned = clean_question(Question)
+    matrix = TF_IDF_STRING(Question)
+    value = 0
+    index = 0
+    index_of_value = 0
+    for element in matrix:
+        if element >= value :
+            value = element
+            index_of_value = index
+        index +=1
+
+
+
+    return index_of_value
